@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
@@ -33,12 +35,17 @@ class Company
     /**
      * @var Collection<int, Employee>
      */
-    #[ORM\OneToMany(targetEntity: Employee::class, mappedBy: 'company', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Employee::class, mappedBy: 'company', cascade: ['persist', 'remove'])]
     private Collection $employees;
 
     public function __construct()
     {
         $this->employees = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -124,9 +131,13 @@ class Company
         return $this;
     }
 
-    public function removeEmployee(Employee $employee): static
+    public function removeEmployeee(Employee $employeee): static
     {
-        $this->employees->removeElement($employee);
+        if ($this->employeees->removeElement($employeee)) {
+            if ($employeee->getCompany() === $this) {
+                $employeee->setCompany(null);
+            }
+        }
 
         return $this;
     }
