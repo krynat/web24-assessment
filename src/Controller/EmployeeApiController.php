@@ -19,22 +19,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class EmployeeApiController extends AbstractController
 {
     public function __construct(
-        private readonly EmployeeService $employeeService, 
+        private readonly EmployeeService $employeeService,
     ) {
     }
 
     #[OA\Get(
-        path: '/api/employee',
+        path: '/api/companies/{companyId}/employees',
         summary: 'Get list of employees',
         parameters: [
-            new OA\Parameter(name: 'company', in: 'query', required: false, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'company', in: 'query', required: false, schema: new OA\Schema(type: 'integer')),
         ],
         responses: [
             new OA\Response(
                 response: 200,
                 description: 'Returns employees',
                 content: new OA\JsonContent(type: 'array', items: new OA\Items(ref: new Model(type: EmployeeDto::class)))
-            )
+            ),
         ]
     )]
     #[Route('/companies/{companyId}/employees', name: 'employee_list', methods: ['GET'], format: 'json')]
@@ -50,7 +50,7 @@ class EmployeeApiController extends AbstractController
         path: '/api/employee/{id}',
         summary: 'Get employee by ID',
         parameters: [
-            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
         ],
         responses: [
             new OA\Response(
@@ -58,7 +58,7 @@ class EmployeeApiController extends AbstractController
                 description: 'Returns the employee',
                 content: new OA\JsonContent(ref: new Model(type: EmployeeDto::class))
             ),
-            new OA\Response(response: 404, description: 'Employee not found')
+            new OA\Response(response: 404, description: 'Employee not found'),
         ]
     )]
     #[Route('/employees/{id}', name: 'employee_get', methods: ['GET'], format: 'json')]
@@ -81,11 +81,12 @@ class EmployeeApiController extends AbstractController
                 response: 201,
                 description: 'Employee created',
                 content: new OA\JsonContent(ref: new Model(type: EmployeeDto::class))
-            )
+            ),
         ]
     )]
     #[Route('/companies/{companyId}/employees', name: 'employee_create', methods: ['POST'], format: 'json')]
-    public function create(#[MapRequestPayload] EmployeeDto $dto): JsonResponse {
+    public function create(#[MapRequestPayload] EmployeeDto $dto): JsonResponse
+    {
         $employee = $this->employeeService->createEmployee($dto);
 
         return $this->json($employee, Response::HTTP_CREATED);
@@ -95,7 +96,7 @@ class EmployeeApiController extends AbstractController
         path: '/api/employees/{id}',
         summary: 'Update employee by ID',
         parameters: [
-            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
         ],
         requestBody: new OA\RequestBody(
             required: true,
@@ -107,7 +108,7 @@ class EmployeeApiController extends AbstractController
                 description: 'Employee updated',
                 content: new OA\JsonContent(ref: new Model(type: EmployeeDto::class))
             ),
-            new OA\Response(response: 404, description: 'Employee not found')
+            new OA\Response(response: 404, description: 'Employee not found'),
         ]
     )]
     #[Route('/employees/{id}', name: 'employee_update', methods: ['PUT', 'PATCH'], format: 'json')]
@@ -124,11 +125,11 @@ class EmployeeApiController extends AbstractController
         path: '/api/employees/{id}',
         summary: 'Delete employee by ID',
         parameters: [
-            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
         ],
         responses: [
             new OA\Response(response: 204, description: 'Employee deleted'),
-            new OA\Response(response: 404, description: 'Employee not found')
+            new OA\Response(response: 404, description: 'Employee not found'),
         ]
     )]
     #[Route('/employees/{id}', name: 'employee_delete', methods: ['DELETE'], format: 'json')]

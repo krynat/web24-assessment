@@ -17,8 +17,8 @@ class EmployeeService
     public function __construct(
         private readonly EmployeeRepository $employeeRepository,
         private readonly CompanyRepository $companyRepository,
-        private readonly EntityManagerInterface $em, 
-        private readonly ObjectMapperInterface $objectMapper, 
+        private readonly EntityManagerInterface $em,
+        private readonly ObjectMapperInterface $objectMapper,
     ) {
     }
 
@@ -27,7 +27,7 @@ class EmployeeService
         $company = $this->companyRepository->find($employeeDto->company);
 
         if (!$company) {
-            throw new \InvalidArgumentException('Company with ID ' . $employeeDto->company . ' not found.');
+            throw new \InvalidArgumentException('Company with ID '.$employeeDto->company.' not found.');
         }
 
         $employee = $this->employeeRepository->findOneBy((array) $employeeDto);
@@ -35,7 +35,7 @@ class EmployeeService
         if ($employee) {
             throw new \InvalidArgumentException('Employee with this tax number already exists');
         }
-        
+
         $newEmployee = new Employee();
         $newEmployee->setCompany($company);
         /** @var Employee $employee */

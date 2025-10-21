@@ -12,7 +12,7 @@ class CompanyDto
 {
     #[Map(target: Company::class, source: null)]
     public ?int $id = null;
-    
+
     #[Assert\NotBlank]
     public string $name;
 

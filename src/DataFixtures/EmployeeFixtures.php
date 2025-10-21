@@ -7,8 +7,8 @@ namespace App\DataFixtures;
 use App\Entity\Company;
 use App\Entity\Employee;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
 class EmployeeFixtures extends Fixture implements DependentFixtureInterface
@@ -18,10 +18,10 @@ class EmployeeFixtures extends Fixture implements DependentFixtureInterface
         $faker = Factory::create();
 
         // Create 3-7 employees for each company
-        for ($i = 0; $i < 5; $i++) {
-            $company = $this->getReference('company_' . $i, Company::class);
+        for ($i = 0; $i < 5; ++$i) {
+            $company = $this->getReference('company_'.$i, Company::class);
 
-            for ($j = 0; $j < rand(3, 7); $j++) {
+            for ($j = 0; $j < rand(3, 7); ++$j) {
                 $employee = new Employee();
                 $employee
                     ->setFirstName($faker->firstName())

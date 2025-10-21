@@ -12,7 +12,7 @@ class EmployeeNormalizer implements NormalizerInterface
 {
     public function __construct(
         #[Autowire(service: 'serializer.normalizer.object')]
-        private readonly NormalizerInterface $normalizer, 
+        private readonly NormalizerInterface $normalizer,
     ) {
     }
 
@@ -23,7 +23,7 @@ class EmployeeNormalizer implements NormalizerInterface
             'firstName' => $data->getFirstName(),
             'lastName' => $data->getLastName(),
             'email' => $data->getEmail(),
-            'phone' => $data->getPhone(), 
+            'phone' => $data->getPhone(),
             'company' => $data->getCompany()?->getId(),
         ];
 

@@ -16,7 +16,7 @@ class CompanyFixtures extends Fixture
         $faker = Factory::create();
 
         // Create 5 fake companies
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 5; ++$i) {
             $company = new Company();
             $company
                 ->setName($faker->company())
@@ -29,7 +29,7 @@ class CompanyFixtures extends Fixture
             $manager->persist($company);
 
             // Add reference for EmployeeFixtures
-            $this->addReference('company_' . $i, $company);
+            $this->addReference('company_'.$i, $company);
         }
 
         $manager->flush();

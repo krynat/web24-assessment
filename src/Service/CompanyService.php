@@ -14,9 +14,9 @@ use Symfony\Component\ObjectMapper\ObjectMapperInterface;
 class CompanyService
 {
     public function __construct(
-        private readonly CompanyRepository $companyRepository,  
-        private readonly EntityManagerInterface $em, 
-        private readonly ObjectMapperInterface $objectMapper, 
+        private readonly CompanyRepository $companyRepository,
+        private readonly EntityManagerInterface $em,
+        private readonly ObjectMapperInterface $objectMapper,
     ) {
     }
 
@@ -27,7 +27,7 @@ class CompanyService
         if ($existingCompany) {
             throw new \InvalidArgumentException('Company with this tax number already exists');
         }
-        
+
         /** @var Company $company */
         $company = $this->objectMapper->map($dto, new Company());
 

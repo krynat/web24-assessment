@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Tests\Helper\DataGeneratorTrait;
-use App\Tests\Helper\PostDataTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,7 +41,7 @@ class CompanyApiControllerTest extends WebTestCase
 
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
 
-        $this->client->request('GET', '/api/companies/' . $response['id']);
+        $this->client->request('GET', '/api/companies/'.$response['id']);
 
         $getResponse = json_decode($this->client->getResponse()->getContent(), true);
 
@@ -59,7 +58,7 @@ class CompanyApiControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
 
         $updatePayload = $this->generateFakeCompany();
-        $this->client->request('PUT', '/api/companies/' . $response['id'], [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($updatePayload));
+        $this->client->request('PUT', '/api/companies/'.$response['id'], [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($updatePayload));
         $updatedResponse = json_decode($this->client->getResponse()->getContent(), true);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
@@ -73,7 +72,7 @@ class CompanyApiControllerTest extends WebTestCase
 
         $response = json_decode($this->client->getResponse()->getContent(), true);
 
-        $this->client->request('DELETE', '/api/companies/' . $response['id']);
+        $this->client->request('DELETE', '/api/companies/'.$response['id']);
 
         $this->assertResponseStatusCodeSame(Response::HTTP_NO_CONTENT);
     }

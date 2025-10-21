@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Dto\CompanyDto;
-use App\Dto\EmployeeDto;
 use App\Service\CompanyService;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
@@ -34,7 +33,7 @@ class CompanyApiController extends AbstractController
                     type: 'array',
                     items: new OA\Items(ref: new Model(type: CompanyDto::class))
                 )
-            )
+            ),
         ]
     )]
     #[Route('', name: 'list', methods: ['GET'], format: 'json')]
@@ -49,7 +48,7 @@ class CompanyApiController extends AbstractController
         path: '/api/companies/{id}',
         summary: 'Get single company',
         parameters: [
-            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
         ],
         responses: [
             new OA\Response(
@@ -57,7 +56,7 @@ class CompanyApiController extends AbstractController
                 description: 'Company details',
                 content: new OA\JsonContent(ref: new Model(type: CompanyDto::class))
             ),
-            new OA\Response(response: 404, description: 'Company not found')
+            new OA\Response(response: 404, description: 'Company not found'),
         ]
     )]
     #[Route('/{id}', name: 'get', methods: ['GET'], format: 'json')]
@@ -80,7 +79,7 @@ class CompanyApiController extends AbstractController
                 response: 201,
                 description: 'Company created',
                 content: new OA\JsonContent(ref: new Model(type: CompanyDto::class))
-            )
+            ),
         ]
     )]
     #[Route('', name: 'create', methods: ['POST'], format: 'json')]
@@ -96,7 +95,7 @@ class CompanyApiController extends AbstractController
         path: '/api/companies/{id}',
         summary: 'Update company by ID',
         parameters: [
-            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
         ],
         requestBody: new OA\RequestBody(
             required: true,
@@ -108,7 +107,7 @@ class CompanyApiController extends AbstractController
                 description: 'Company updated',
                 content: new OA\JsonContent(ref: new Model(type: CompanyPostDto::class))
             ),
-            new OA\Response(response: 404, description: 'Company not found')
+            new OA\Response(response: 404, description: 'Company not found'),
         ]
     )]
     #[Route('/{id}', name: 'update', methods: ['PUT', 'PATCH'], format: 'json')]
@@ -125,11 +124,11 @@ class CompanyApiController extends AbstractController
         path: '/api/companies/{id}',
         summary: 'Delete company by ID',
         parameters: [
-            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer'))
+            new OA\Parameter(name: 'id', in: 'path', required: true, schema: new OA\Schema(type: 'integer')),
         ],
         responses: [
             new OA\Response(response: 204, description: 'Company deleted'),
-            new OA\Response(response: 404, description: 'Company not found')
+            new OA\Response(response: 404, description: 'Company not found'),
         ]
     )]
     #[Route('/{id}', name: 'delete', methods: ['DELETE'], format: 'json')]

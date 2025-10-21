@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Tests\Helper\DataGeneratorTrait;
-use App\Tests\Helper\PostDataTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +29,7 @@ class EmployeeApiControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_CREATED);
 
         $employeePayload = $this->generateFakeEmployee($companyResponse['id']);
-        $this->client->request('POST', '/api/companies/' . $employeePayload['company'] . '/employees', [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($employeePayload));
+        $this->client->request('POST', '/api/companies/'.$employeePayload['company'].'/employees', [], [], ['CONTENT_TYPE' => 'application/json'], json_encode($employeePayload));
         $employeeResponse = json_decode($this->client->getResponse()->getContent(), true);
         $employeePayload['id'] = $employeeResponse['id'];
 
