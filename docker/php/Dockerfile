@@ -13,3 +13,5 @@ WORKDIR /var/www/html
 
 # Copy Symfony project files
 COPY ../../ /var/www/html
+
+RUN chmod +x ./init.sh
